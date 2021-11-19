@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <meta charset="UTF-8">
+    <title>Cập nhật sản phẩm</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="col-3"></div>
+<div class="container col-6">
+    <h1 class=mr-3>Cập nhật sản phẩm</h1>
+    <form th:action="@{save}" th:object="${product}" action="#" method="post">
+        <input type="hidden" th:value="${idshop}" name="idshop">
+        <input type="hidden" th:field="*{id}">
+        <div>
+            <label th:for="productname">Tên sản phẩm</label>
+            <input type="text" th:field="*{productname}" class="form-control"/>
+        </div>
+        <div style="clear: both; display: block; height: 10px"></div>
+        <div>
+            <label th:for="unitprice">Giá bán</label>
+            <input type="text" th:field="*{unitprice}" class="form-control"/>
+        </div>
+        <div style="clear: both; display: block; height: 10px"></div>
+        <div>
+            <label th:for="quantity">Số lượng</label>
+            <input type="text" th:field="*{quantity}" class="form-control"/>
+        </div>
+        <div style="clear: both; display: block; height: 10px"></div>
+        <div>
+            <label th:for="selledquantity">Đã bán</label>
+            <input type="text" th:field="*{selledquantity}" class="form-control"/>
+        </div>
+        <div style="clear: both; display: block; height: 10px"></div>
+        <div>
+            <input type="submit" class="btn btn-success" value="Save"/>
+            <a th:href="@{/product?id={id}(id=${idshop})}" type="button" class="btn btn-secondary m-2"
+               onclick="cancelform()">Cancel</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
