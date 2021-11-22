@@ -15,4 +15,6 @@ public interface ProductService {
     List<ProductDTO> findProductByShopId(Integer id);
 
     Optional<ProductDTO> findProductById(Integer id);
+
+    Optional<ProductDTO> findProductByProductname(String productname);
 }

@@ -42,4 +42,9 @@ public class ProductImpl implements ProductService {
     public Optional<ProductDTO> findProductById(Integer id) {
         return Optional.of(productMapper.modeltoDTO(productRepository.findById(id).get()));
     }
+
+    @Override
+    public Optional<ProductDTO> findProductByProductname(String productname) {
+        return Optional.ofNullable(productMapper.modeltoDTO(productRepository.findProductByProductname(productname)));
+    }
 }

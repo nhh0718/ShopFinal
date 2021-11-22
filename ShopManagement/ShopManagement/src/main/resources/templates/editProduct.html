@@ -9,11 +9,15 @@
 <div class="col-3"></div>
 <div class="container col-6">
     <h1 class=mr-3>Cập nhật sản phẩm</h1>
-    <form th:action="@{save}" th:object="${product}" action="#" method="post">
+    <div th:if="${errorMessage}" class="alert alert-success text-center">
+        <div th:text="${errorMessage}"></div>
+    </div>
+    <form th:action="@{update}" th:object="${product}" action="#" method="post">
         <input type="hidden" th:value="${idshop}" name="idshop">
         <input type="hidden" th:field="*{id}">
         <div>
             <label th:for="productname">Tên sản phẩm</label>
+            <p th:if="${#fields.hasErrors('productname')}" th:errors="*{productname}"></p>
             <input type="text" th:field="*{productname}" class="form-control"/>
         </div>
         <div style="clear: both; display: block; height: 10px"></div>
