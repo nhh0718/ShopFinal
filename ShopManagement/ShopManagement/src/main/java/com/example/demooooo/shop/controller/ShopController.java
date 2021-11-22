@@ -6,6 +6,7 @@ import com.example.demooooo.shop.shopDto.ShopDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -32,6 +33,11 @@ public class ShopController {
   @RequestMapping("shop/new")
   public String addUser(@Valid @RequestParam("userid") Integer userid, Model model) {
     model.addAttribute("shop", new Shop());
+    if (model.asMap().containsKey("shoperror"))
+    {
+      model.addAttribute("org.springframework.validation.BindingResult.shop",
+              model.asMap().get("shoperror"));
+    }
     model.addAttribute("userid", userid);
     return "createShop";
   }
@@ -53,9 +59,12 @@ public class ShopController {
   }
 
   @PostMapping(value = "shop/save")
-  public String saveUser(@Valid @ModelAttribute("shop") ShopDto shop, Errors errors, RedirectAttributes ra) {
-    if (errors.hasErrors()) {
-      return "createShop";
+  public String saveUser(@Valid @ModelAttribute("shop") ShopDto shop, BindingResult bindingResult, RedirectAttributes ra) {
+    if (bindingResult.hasErrors()) {
+      ra.addFlashAttribute("shoperror", bindingResult);
+      ra.addFlashAttribute("shop",shop);
+      ra.addAttribute("userid", shop.getUserid());
+      return "redirect:/shop/new";
     }
 //
     Optional<ShopDto> checkname = shopService.findShopByShopname(shop.getShopname());
