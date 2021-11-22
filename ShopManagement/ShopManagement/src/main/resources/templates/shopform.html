@@ -22,6 +22,9 @@
         <div class="text-center" style="color: #ff0000" th:text="${quantityError}"></div>
         <div class="text-center" style="color: #ff0000" th:text="${quantityNotE}"></div>
     </div>
+    <div th:if="${buysuccess}">
+        <div class="text-center" style="color: darkgreen" th:text="${buysuccess}"></div>
+    </div>
     <br/>
     <form th:object="${p}" th:action="@{/buy}">
         <a class="btn btn-success float-right" style="margin: 10px 0px" th:href="@{/sortproduct?id={id}&userid={userid}((id=${idshop}),(userid=${userid}))}">Sắp xếp theo tên</a>

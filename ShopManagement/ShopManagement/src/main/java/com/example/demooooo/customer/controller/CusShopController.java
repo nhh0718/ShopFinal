@@ -30,7 +30,6 @@ public class CusShopController {
         return "index";
     }
 
-
     @GetMapping("/search")
     public String search(Model model, @RequestParam("keyword") String keyword, @RequestParam Integer userid) {
         Optional<CusShopDto> shop = cusShopService.findShopByName(keyword);
