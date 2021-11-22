@@ -38,8 +38,7 @@
         </thead>
     </table>
     <div th:object="${shop}">
-        <a class="btn btn-primary" th:href="@{/product?id={id}(id=*{id})}">Xem sản phẩm</a>
-        <a th:href="@{/admin?id={id}(id=*{userid})}" type="button" class="btn btn-secondary m-2" onclick="cancelform()">Cancel</a>
+        <a th:href="@{/product?id={id}&userid={userid}(id=*{id}, userid=*{userid})}">Xem sản phẩm</a>
     </div>
 </div>
 </body>

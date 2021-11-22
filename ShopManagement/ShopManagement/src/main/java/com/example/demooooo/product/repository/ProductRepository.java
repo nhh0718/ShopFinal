@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findProductByIdshop(Integer idshop);
+    Product findProductByProductname(String productname);
 
     void deleteProductByIdshop(Integer idshop);
 }

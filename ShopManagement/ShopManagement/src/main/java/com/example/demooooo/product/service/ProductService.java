@@ -16,5 +16,7 @@ public interface ProductService {
 
     Optional<ProductDTO> findProductById(Integer id);
 
+    Optional<ProductDTO> findProductByProductname(String productname);
+
     void deleteProductByIdshop(Integer idshop);
 }

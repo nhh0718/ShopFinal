@@ -8,6 +8,10 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Setter
 @Getter
@@ -20,7 +24,15 @@ public class ProductDTO {
     private int id;
 
     private int idshop;
+
+    @NotBlank(message = "Not null!!!")
     private String productname;
+
+    @Min(0)
     private double unitprice;
-    private int quantity, selledquantity;
+
+    @Min(1)
+    private int quantity;
+
+    private int selledquantity;
 }
