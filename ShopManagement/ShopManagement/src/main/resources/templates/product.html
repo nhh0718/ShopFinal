@@ -25,14 +25,14 @@
             <td th:text="${product.unitprice}"></td>
             <td th:text="${product.quantity}"></td>
             <td>
-                <a th:href="@{/product/update?id={id}(id=${product.id})}" class="btn btn-primary">Chỉnh sửa</a>
-                <a th:href="@{/product/delete?id={id}(id=${product.id})}" class="btn btn-danger">Xóa</a>
+                <a th:href="@{/product/update?id={id}&userid={userid}(id=${product.id},userid=${userid})}" class="btn btn-primary">Chỉnh sửa</a>
+                <a th:href="@{/product/delete?id={id}&userid={userid}(id=${product.id},userid=${userid})}" class="btn btn-danger">Xóa</a>
             </td>
         </tr>
         </tbody>
         </thead>
     </table>
-    <a type="button" class="btn btn-primary" th:href="@{/product/addproduct?id={id}(id=${idshop})}">Thêm sản phẩm</a>
+    <a type="button" class="btn btn-primary" th:href="@{/product/addproduct?id={id}&userid={userid}(id=${idshop},userid=${userid})}">Thêm sản phẩm</a>
     <a th:href="@{/shop?id={id}(id=${userid})}" type="button" class="btn btn-secondary m-2"
        onclick="cancelform()">Cancel</a>
 </div>

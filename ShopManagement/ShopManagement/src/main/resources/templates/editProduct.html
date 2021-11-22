@@ -14,7 +14,9 @@
     </div>
     <form th:action="@{update}" th:object="${product}" action="#" method="post">
         <input type="hidden" th:value="${idshop}" name="idshop">
+        <input type="hidden" th:value="${userid}" name="userid">
         <input type="hidden" th:field="*{id}">
+
         <div>
             <label th:for="productname">Tên sản phẩm</label>
             <p th:if="${#fields.hasErrors('productname')}" th:errors="*{productname}"></p>
