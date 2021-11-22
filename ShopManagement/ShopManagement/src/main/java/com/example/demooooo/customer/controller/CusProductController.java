@@ -19,12 +19,6 @@ public class CusProductController {
     @Autowired
     private CusProductService cusProductService;
     @Autowired private CusShopService cusShopService;
-//    @GetMapping("/shopform")
-//    public String viewProductList(@RequestParam("id") Integer id, Model model, RedirectAttributes ra){
-//        List<ProductDto> p = productService.getAllProduct();
-//        model.addAttribute("product", p);
-//        return "shopform";
-//    }
 
     @GetMapping("shopform")
     public String index(@RequestParam("id") Integer id, @RequestParam Integer userid, Model model) {
@@ -85,11 +79,10 @@ public class CusProductController {
                       @RequestParam Integer userid,
                       RedirectAttributes ra) {
         boolean over = false;
-        Optional<CusShopDto> shopDto = cusShopService.findShopById(idshop);
         for (int j = 0; j < productid.length; j++) {
             Optional<CusProductDto> check = cusProductService.findProductById(productid[j]);
             if (check.get().getQuantity() < soluong[j]) {
-                ra.addFlashAttribute("quantityError", "Khong du so luong");
+                ra.addFlashAttribute("quantityError", "Số lượng hàng trong kho không đủ.");
                 over = true;
                 break;
             }
@@ -103,10 +96,12 @@ public class CusProductController {
                 cusProductService.saveProduct(check.get());
                 total += soluong[i];
             }
+            Optional<CusShopDto> shopDto = cusShopService.findShopById(idshop);
             shopDto.get().setTotalselledproduct(shopDto.get().getTotalselledproduct() + total);
             cusShopService.saveShop(shopDto.get());
             ra.addAttribute("id", idshop);
             ra.addAttribute("userid", userid);
+            ra.addFlashAttribute("buysuccess", "Mua hàng thành công.");
             return "redirect:/shopform";
         }
         ra.addAttribute("id", idshop);

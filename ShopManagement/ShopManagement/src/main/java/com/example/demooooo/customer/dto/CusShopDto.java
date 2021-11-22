@@ -21,4 +21,6 @@ public class CusShopDto {
     private String shopdesc;
 
     private int totalselledproduct;
+
+    private int userid;
 }
