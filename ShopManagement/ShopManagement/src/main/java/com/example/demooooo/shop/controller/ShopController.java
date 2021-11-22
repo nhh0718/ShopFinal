@@ -1,5 +1,6 @@
 package com.example.demooooo.shop.controller;
 
+import com.example.demooooo.product.service.ProductService;
 import com.example.demooooo.shop.model.Shop;
 import com.example.demooooo.shop.service.ShopService;
 import com.example.demooooo.shop.shopDto.ShopDto;
@@ -17,6 +18,8 @@ import java.util.Optional;
 @Controller
 public class ShopController {
   @Autowired private ShopService shopService;
+
+  @Autowired private ProductService productService;
 
   @GetMapping("shop")
   public String index(@RequestParam("id") Integer id, Model model, RedirectAttributes ra) {
@@ -41,23 +44,6 @@ public class ShopController {
     model.addAttribute("userid", userid);
     return "createShop";
   }
-
-  @RequestMapping(value = "/shop/edit", method = RequestMethod.GET)
-  public String editUser(@RequestParam("id") Integer shopId, Model model) {
-    Optional<ShopDto> shopEdit = shopService.findShopById(shopId);
-    model.addAttribute("userid", shopEdit.get().getUserid());
-    shopEdit.ifPresent(shop -> model.addAttribute("shop", shop));
-    return "editShop"  ;
-  }
-
-  @RequestMapping(value = "/shop/delete")
-  public String deleteUser(@RequestParam("id") Integer shopId, RedirectAttributes ra) {
-    Optional<ShopDto> s = shopService.findShopById(shopId);
-    ra.addAttribute("id", s.get().getUserid());
-    shopService.deleteShop(shopId);
-    return "redirect:/admin";
-  }
-
   @PostMapping(value = "shop/save")
   public String saveUser(@Valid @ModelAttribute("shop") ShopDto shop, BindingResult bindingResult, RedirectAttributes ra) {
     if (bindingResult.hasErrors()) {
@@ -79,39 +65,28 @@ public class ShopController {
       ra.addAttribute("id", shop.getUserid());
       return "redirect:/shop";
     }
-//    boolean check = false;
-//    List<ShopDto> shopList = shopService.getAllShop();
-//    for (ShopDto s : shopList) {
-//      if (s.getShopname().equals(shop.getShopname())) {
-//        check = true;
-//      }
-//    }
-//    if (check) {
-//      ra.addFlashAttribute("errorMessage", "Tên cửa hàng đã tồn tại");
-//      ra.addAttribute("userid", shop.getUserid());
-//      return "redirect:/shop/new";
-//    } else {
-//      ra.addFlashAttribute("message", "Lưu cửa hàng thành công. ");
-//      shopService.saveShop(shop);
-//    }
-
   }
 
-  @GetMapping("/addproduct")
-  public String admin(@RequestParam("id") Integer id, Model model) {
-    ShopDto shopDto = shopService.findShopById(id).get();
-    model.addAttribute("shop", shopDto);
-    return "addproduct";
+  @RequestMapping(value = "/shop/edit", method = RequestMethod.GET)
+  public String editUser(@RequestParam("id") Integer shopId, Model model) {
+    Optional<ShopDto> shopEdit = shopService.findShopById(shopId);
+    model.addAttribute("userid", shopEdit.get().getUserid());
+    shopEdit.ifPresent(shop -> model.addAttribute("shop", shop));
+    if (model.asMap().containsKey("shoperror"))
+    {
+      model.addAttribute("org.springframework.validation.BindingResult.shop",
+              model.asMap().get("shoperror"));
+    }
+    model.addAttribute("id", shopId);
+    return "editShop"  ;
   }
-
   @PostMapping(value = "shop/update")
-  public String update(
-          @Valid @ModelAttribute("shop") ShopDto shop,
-          @RequestParam("id") Integer id,
-          Errors errors,
-          RedirectAttributes ra) {
-    if (errors.hasErrors()) {
-      return "editShop";
+  public String update(@Valid @ModelAttribute("shop") ShopDto shop, BindingResult bindingResult, @RequestParam("id") Integer id, RedirectAttributes ra) {
+    if (bindingResult.hasErrors()) {
+      ra.addFlashAttribute("shoperror", bindingResult);
+      ra.addFlashAttribute("shop",shop);
+      ra.addAttribute("id", shop.getId());
+      return "redirect:/shop/edit";
     }
     Optional<ShopDto> currentname = shopService.findShopById(id);
     Optional<ShopDto> checkname = shopService.findShopByShopname(shop.getShopname());
@@ -127,24 +102,20 @@ public class ShopController {
       return "redirect:/shop";
     }
   }
-//    boolean check = false;
-//    List<ShopDto> shopList = shopService.getAllShop();
-//    Optional<ShopDto> currentShop = shopService.findShopById(id);
-//    for (ShopDto s : shopList) {
-//      if (s.getShopname().equals(shop.getShopname())
-//          && (!s.getShopname().equals(currentShop.get().getShopname()))) {
-//        check = true;
-//      }
-//    }
-//    if (check) {
-//      ra.addFlashAttribute("errorMessage", "Tên cửa hàng đã tồn tại");
-//      ra.addAttribute("id", shop.getId());
-//      return "redirect:/shop/edit";
-//    } else {
-//      ra.addFlashAttribute("message", "Lưu cửa hàng thành công. ");
-//      shopService.saveShop(shop);
-//    }
-//    ra.addAttribute("id", shop.getUserid());
-//    return "redirect:/shop";
-//  }
+  @RequestMapping(value = "/shop/delete")
+  public String deleteUser(@RequestParam("id") Integer shopId, RedirectAttributes ra) {
+    Optional<ShopDto> s = shopService.findShopById(shopId);
+    ra.addAttribute("id", s.get().getUserid());
+    productService.deleteProductByIdshop(shopId);
+    shopService.deleteShop(shopId);
+    return "redirect:/admin";
+  }
+
+
+  @GetMapping("/addproduct")
+  public String admin(@RequestParam("id") Integer id, Model model) {
+    ShopDto shopDto = shopService.findShopById(id).get();
+    model.addAttribute("shop", shopDto);
+    return "addproduct";
+  }
 }

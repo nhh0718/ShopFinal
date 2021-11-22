@@ -23,7 +23,7 @@ public class ProductController {
 
     @RequestMapping("/product")
     public String getAllProduct(@RequestParam("id") Integer id, Model model, RedirectAttributes ra) {
-        List<ProductDTO> check = productService.findProductByShopId(id);
+       List<ProductDTO> check = productService.findProductByShopId(id);
         if (check != null) {
             model.addAttribute("product", check);
             model.addAttribute("idshop", id);

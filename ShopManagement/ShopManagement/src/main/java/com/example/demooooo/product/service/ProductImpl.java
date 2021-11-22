@@ -5,11 +5,14 @@ import com.example.demooooo.product.mapper.ProductMapper;
 import com.example.demooooo.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ProductImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
@@ -41,5 +44,9 @@ public class ProductImpl implements ProductService {
     @Override
     public Optional<ProductDTO> findProductById(Integer id) {
         return Optional.of(productMapper.modeltoDTO(productRepository.findById(id).get()));
+    }
+    @Override
+    public void deleteProductByIdshop(Integer idshop){
+        productRepository.deleteProductByIdshop(idshop);
     }
 }
