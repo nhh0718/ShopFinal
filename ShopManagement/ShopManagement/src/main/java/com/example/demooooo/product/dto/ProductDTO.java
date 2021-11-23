@@ -28,10 +28,10 @@ public class ProductDTO {
     @NotBlank(message = "Not null!!!")
     private String productname;
 
-    @Min(0)
+    @Min(value = 0, message = "Not Null!!!")
     private double unitprice;
 
-    @Min(1)
+    @Min(value = 1, message = "Tối thiểu một sản phẩm!!!")
     private int quantity;
 
     private int selledquantity;

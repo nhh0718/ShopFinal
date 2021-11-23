@@ -25,22 +25,19 @@
         <div style="clear: both; display: block; height: 10px"></div>
         <div>
             <label th:for="unitprice">Giá bán</label>
-            <input type="text" th:field="*{unitprice}" class="form-control"/>
+            <p th:if="${#fields.hasErrors('unitprice')}" th:errors="*{unitprice}"></p>
+            <input type="number" th:field="*{unitprice}" class="form-control"/>
         </div>
         <div style="clear: both; display: block; height: 10px"></div>
         <div>
             <label th:for="quantity">Số lượng</label>
-            <input type="text" th:field="*{quantity}" class="form-control"/>
-        </div>
-        <div style="clear: both; display: block; height: 10px"></div>
-        <div>
-            <label th:for="selledquantity">Đã bán</label>
-            <input type="text" th:field="*{selledquantity}" class="form-control"/>
+            <p th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></p>
+            <input type="number" th:field="*{quantity}" class="form-control"/>
         </div>
         <div style="clear: both; display: block; height: 10px"></div>
         <div>
             <input type="submit" class="btn btn-success" value="Save"/>
-            <a th:href="@{/product?id={id}(id=${idshop})}" type="button" class="btn btn-secondary m-2"
+            <a th:href="@{/product?id={id}&userid={userid}(id=${idshop},userid=${userid})}" type="button" class="btn btn-secondary m-2"
                onclick="cancelform()">Cancel</a>
         </div>
     </form>

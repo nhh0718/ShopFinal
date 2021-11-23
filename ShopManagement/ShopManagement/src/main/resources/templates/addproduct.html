@@ -35,7 +35,7 @@
             <div style="clear: both; display: block; height: 10px"></div>
             <div>
                 <input type="submit" class="btn btn-success" value="Save"/>
-                <a th:href="@{/product?id={id}(id=${idshop})}" type="button" class="btn btn-secondary m-2"
+                <a th:href="@{/product?id={id}&userid={userid}(id=${idshop},userid=${userid})}" type="button" class="btn btn-secondary m-2"
                    onclick="cancelform()">Cancel</a>
             </div>
         </form>
