@@ -26,13 +26,13 @@
         <div>
             <label th:for="unitprice">Giá bán</label>
             <p th:if="${#fields.hasErrors('unitprice')}" th:errors="*{unitprice}"></p>
-            <input type="number" th:field="*{unitprice}" class="form-control"/>
+            <input type="number" value="0" th:field="*{unitprice}" class="form-control" required/>
         </div>
         <div style="clear: both; display: block; height: 10px"></div>
         <div>
             <label th:for="quantity">Số lượng</label>
             <p th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></p>
-            <input type="number" th:field="*{quantity}" class="form-control"/>
+            <input type="number" value="0" th:field="*{quantity}" class="form-control" required/>
         </div>
         <div style="clear: both; display: block; height: 10px"></div>
         <div>
