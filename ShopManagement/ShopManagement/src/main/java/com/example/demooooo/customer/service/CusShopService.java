@@ -44,7 +44,7 @@ public class CusShopService {
 
     // Tìm kiếm shop theo tên
     public Optional<CusShopDto> findShopByName(String shopname) {
-            return Optional.of(shopMapper.modelToDto(shopRepository.findShopByShopname(shopname).get()));
+            return Optional.ofNullable(shopMapper.modelToDto(shopRepository.findShopByShopname(shopname)));
     }
 
     public List<CusShopDto> findAllBySelled() {
