@@ -101,7 +101,11 @@ public class CusProductController {
             cusShopService.saveShop(shopDto.get());
             ra.addAttribute("id", idshop);
             ra.addAttribute("userid", userid);
-            ra.addFlashAttribute("buysuccess", "Mua hàng thành công.");
+            if(total == 0){
+                ra.addFlashAttribute("buy0", "Bạn chưa nhập số lượng.");
+            }else {
+                ra.addFlashAttribute("buysuccess", "Mua hàng thành công.");
+            }
             return "redirect:/shopform";
         }
         ra.addAttribute("id", idshop);

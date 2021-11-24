@@ -19,15 +19,17 @@
     <h1 style="text-align: center; margin-bottom: 50px">Danh sách sản phẩm</h1>
     <form th:object="${p}" th:action="@{/buy}">
         <div th:if="${quantityError}">
-            <div class="text-center" style="color: #ff0000" th:text="${quantityError}"></div>
-            <div class="text-center" style="color: #ff0000" th:text="${quantityNotE}"></div>
+            <div class="alert alert-danger text-center" th:text="${quantityError}"></div>
+<!--            <div class="alert alert-success text-center" th:text="${quantityNotE}"></div>-->
         </div>
         <div th:if="${buysuccess}">
-            <div class="text-center" style="color: darkgreen" th:text="${buysuccess}"></div>
+            <div class="alert alert-success text-center" th:text="${buysuccess}"></div>
         </div>
-        <a th:href="@{/guest?userid={userid}(userid=${userid})}" class="btn btn-primary">Trang chủ</a>
-
-        <a class="btn btn-success float-right" style="margin: 10px 0px" th:href="@{/sortproduct?id={id}&userid={userid}((id=${idshop}),(userid=${userid}))}">Sắp xếp theo tên</a>
+        <div th:if="${buy0}">
+            <div class="alert alert-dark text-center" th:text="${buy0}"></div>
+        </div>
+        <a th:href="@{/guest?userid={userid}(userid=${userid})}"  class="btn btn-primary">Trang chủ</a>
+        <a class="btn btn-success float-right" th:href="@{/sortproduct?id={id}&userid={userid}((id=${idshop}),(userid=${userid}))}">Sắp xếp theo tên</a>
     <table border="1" class = "table table-striped table-responsive-md" style="margin-top: 15px; width: 100%">
         <colgroup>
             <col span="1" style="width: 30%;">
@@ -53,7 +55,7 @@
             <td style="text-align: center" th:text="${cusProduct.quantity}"></td>
             <td style="text-align: center" th:text="${cusProduct.selledquantity}"></td>
             <td>
-                <input type="number" min="0" name="soluong" id="soluong" th:value="${soluong}"  required>
+                <input type="number" min="0" name="soluong" id="soluong" th:value="0"  required>
                 <input type="hidden" name="idshop" id="idshop" th:value="${idshop}" required>
                 <input type="hidden" name="productid" id="productid" th:value="${cusProduct.id}" required>
                 <input type="hidden" name="userid"  size="10" th:value="${userid}" required>

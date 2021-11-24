@@ -80,8 +80,7 @@ public class ProductController {
             redirectAttributes.addAttribute("userid", userid);
             return "redirect:/product/addproduct";
         }
-        Optional<ProductDTO> checknameProduct =
-                productService.findProductByProductname(productDTO.getProductname());
+        Optional<ProductDTO> checknameProduct = productService.findProductByProductname(productDTO.getProductname());
         if (checknameProduct.isPresent()) {
             redirectAttributes.addFlashAttribute("errorMessage", "Sản phẩm đã tồn tại");
             redirectAttributes.addAttribute("id", productDTO.getIdshop());
