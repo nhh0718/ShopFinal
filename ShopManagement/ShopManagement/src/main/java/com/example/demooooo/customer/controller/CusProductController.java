@@ -81,8 +81,8 @@ public class CusProductController {
         boolean over = false;
         for (int j = 0; j < productid.length; j++) {
             Optional<CusProductDto> check = cusProductService.findProductById(productid[j]);
-            if (check.get().getQuantity() < soluong[j]) {
-                ra.addFlashAttribute("quantityError", "Số lượng hàng trong kho không đủ.");
+            if ((check.get().getQuantity() - 10) < soluong[j]) {
+                ra.addFlashAttribute("quantityNotE", "Số lượng hàng không được dưới 10 sản phẩm");
                 over = true;
                 break;
             }
