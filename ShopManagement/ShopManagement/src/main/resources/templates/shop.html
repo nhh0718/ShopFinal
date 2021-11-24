@@ -31,7 +31,7 @@
             <td th:text="${shop.shopdesc}"></td>
             <td>
                 <a th:href="@{/shop/edit?id={id}(id=${shop.id})}" class="btn btn-primary">Chỉnh sửa</a>
-                <a th:href="@{/shop/delete?id={id}(id=${shop.id})}" class="btn btn-danger">Xóa</a>
+                <a th:href="@{/shop/delete?id={id}(id=${shop.id})}" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</a>
             </td>
         </tr>
         </tbody>
