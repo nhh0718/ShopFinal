@@ -1,22 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-          crossorigin="anonymous">
+    <title th:text="${shopbyid.shopname}"></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
     <link rel="stylesheet" href="/static/style.css">
     <style>
         th{
             text-align: center;
         }
+        ul#shop li{
+            display: inline-block;
+            padding-left: 20px;
+        }
     </style>
 </head>
 <body>
+
 <div class="container my-2">
-    <h1 style="text-align: center; margin-bottom: 50px">Danh sách sản phẩm</h1>
+    <h1 style="text-align: center; margin-bottom: 50px">Chi tiết cửa hàng</h1>
+    <div th:object="${shopbyid}">
+        <h3 style="margin-bottom: 10px; font-weight: bold" th:text="*{'Tên shop: ' + shopname}"></h3>
+        <ul id="shop">
+            <li>
+                <span class="d-inline-block">
+                    <i class="fas fa-map-marked-alt fa-lg"></i>
+                </span>
+                <span class="d-inline-block" th:text="*{'Địa chỉ: ' + shopaddress}"></span>
+            </li>
+            <li>
+                <span class="d-inline-block">
+                    <i class="far fa-file-alt fa-lg"></i>
+                </span>
+                <span class="d-inline-block" th:text="*{'Miêu tả: ' + shopdesc}"></span>
+            </li>
+            <li>
+                <span class="d-inline-block">
+                    <i class="fas fa-phone fa-lg"></i>
+                </span>
+                <span class="d-inline-block" th:text="*{'Điện thoại: ' + shoptel}"></span>
+            </li>
+        </ul>
+
+    </div>
     <form th:object="${p}" th:action="@{/buy}">
         <div th:if="${quantityNotE}">
             <div class="alert alert-danger text-center" style="color: #ff0000" th:text="${quantityNotE}"></div>
@@ -62,7 +89,7 @@
         </tr>
         <tr>
             <td colspan="5">
-                <input type="submit" class="btn btn-success" style="float: right" value="Mua hàng"></input>
+                <input type="submit" class="btn btn-success" style="float: right" value="Mua hàng">
             </td>
         </tr>
         </tbody>

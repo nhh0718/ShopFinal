@@ -23,13 +23,15 @@ public class CusProductController {
     @GetMapping("shopform")
     public String index(@RequestParam("id") Integer id, @RequestParam Integer userid, Model model) {
         List<CusProductDto> check = cusProductService.findProductByIdshop(id);
-        if (check != null) {
+        Optional<CusShopDto> shopbyid = cusShopService.findShopById(id);
+        model.addAttribute("shopbyid", shopbyid.get());
+        if (check.size() != 0) {
             model.addAttribute("cusProduct", check);
             model.addAttribute("idshop", id);
             model.addAttribute("userid", userid);
             return "shopform";
         } else {
-//            ra.addAttribute("id", id);
+            model.addAttribute("userid", userid);
             return "NotFound";
         }
     }
@@ -37,40 +39,13 @@ public class CusProductController {
     @GetMapping("/sortproduct")
     public String sort(@RequestParam("id") Integer id, @RequestParam Integer userid, Model model) {
         List<CusProductDto> check = cusProductService.sortProduct(id);
-        if (check != null) {
+        Optional<CusShopDto> shopbyid = cusShopService.findShopById(id);
+        model.addAttribute("shopbyid", shopbyid.get());
             model.addAttribute("cusProduct", check);
             model.addAttribute("idshop", id);
             model.addAttribute("userid", userid);
             return "shopform";
-        } else {
-//            ra.addAttribute("id", id);
-            return "NotFound";
-        }
     }
-//    @GetMapping("/buy")
-//    public String Buy(@RequestParam("soluong") List<Integer> soluong,@RequestParam Integer idshop, RedirectAttributes ra){
-//        List<ProductDto> check = productService.findProductByIdshop(idshop);
-//        boolean over = false;
-//        for (int i = 0; i< soluong.size(); i++){
-//            if(soluong.get(i) < check.get(i).getQuantity()){
-//                check.get(i).setQuantity(check.get(i).getQuantity() - soluong.get(i));
-//                check.get(i).setSelledquantity(check.get(i).getSelledquantity()+soluong.get(i));
-//            }
-//            else{
-//                ra.addFlashAttribute("quantityError", "Khong du so luong");
-//                over = true;
-//            }
-//        }
-//        if (over){
-//            ra.addAttribute("id", idshop);
-//            return "redirect:/shopform";
-//        }
-//        else{
-//            productService.saveAllProduct(check);
-//            ra.addAttribute("id", idshop);
-//            return "redirect:/shopform";
-//        }
-//    }
 
     @GetMapping("/buy")
     public String Buy(@RequestParam Integer[] productid,

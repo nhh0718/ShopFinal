@@ -21,7 +21,7 @@ public class ShopDto {
     @NotEmpty(message = "Chưa nhập địa chỉ cửa hàng!")
     private String shopaddress;
 
-//    @Pattern(regexp="(^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$)", message = "Nhập sai sđt kìa !")
+    @Pattern(regexp="(^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$)", message = "Nhập sai sđt kìa !")
     @NotEmpty(message = "Chưa nhập số điện thoại!")
     private String shoptel;
 
